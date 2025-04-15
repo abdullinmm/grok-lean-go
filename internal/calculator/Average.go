@@ -6,7 +6,7 @@ var (
 	errEmptySlice = errors.New("Slice is Empty")
 )
 
-// calculateAverage вычисляет среднее значение
+// CalculateAverage calculates the average of a slice of integers.
 func CalculateAverage(s []int) (float64, error) {
 	if len(s) == 0 {
 		return 0, errEmptySlice

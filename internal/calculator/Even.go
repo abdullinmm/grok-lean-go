@@ -1,6 +1,6 @@
 package calculator
 
-// isEven проверяет, является ли число чётным
+// IsEven checks if a number is even.
 func IsEven(num int) bool {
 	return num%2 == 0
 }

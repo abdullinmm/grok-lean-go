@@ -17,6 +17,23 @@ func main() {
 		return
 	}
 
-	fmt.Printf("Привет, %s! Твои оценки: %v. Средняя оценка: %.2f.", name, s, average)
-	fmt.Printf("\nЧисло %d является четным: %t", num, calculator.IsEven(num))
+	printResult(name, s, average, num, calculator.IsEven(num))
+
+	// slice := []int{1}
+
+	// fmt.Println("Slice element:", slice[1])
+
+	m := make(map[string]int)
+	m["Marsel"] = 42
+	value, ok := m["Marat"]
+	if !ok {
+		fmt.Println("Not valid key for map")
+		return
+	}
+	fmt.Println("map value:", value)
+}
+
+func printResult(name string, grades []int, average float64, num int, isEven bool) {
+	fmt.Printf("Hello, %s! Your grades: %v. Average grade: %.2f\n", name, grades, average)
+	fmt.Printf("Number %d is even: %t\n", num, isEven)
 }
