@@ -1,26 +1,22 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-var (
-	name = "Alice"
-	s    = []int{2, 4, 7}
-	num  = 4
+	"github.com/abdullinmm/grok-lean-go/internal/calculator"
 )
 
 func main() {
-	fmt.Printf("Привет, %s! Твои оценки: %v. Средняя оценка: %.2f.", name, s, middelNumber(s))
-	fmt.Printf("\nЧисло %d является четным: %t", num, IsEven(num))
-}
+	name := "Alice"
+	s := []int{2, 4, 7}
+	num := 4
 
-func middelNumber(s []int) float64 {
-	var num float64
-	for _, v := range s {
-		num += float64(v)
+	average, err := calculator.CalculateAverage(s)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
 	}
-	return num / float64(len(s))
-}
 
-func IsEven(num int) bool {
-	return num%2 == 0
+	fmt.Printf("Привет, %s! Твои оценки: %v. Средняя оценка: %.2f.", name, s, average)
+	fmt.Printf("\nЧисло %d является четным: %t", num, calculator.IsEven(num))
 }
