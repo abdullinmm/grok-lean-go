@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/abdullinmm/grok-lean-go/internal/accessor"
 	"github.com/abdullinmm/grok-lean-go/internal/calculator"
 )
 
@@ -19,18 +20,24 @@ func main() {
 
 	printResult(name, s, average, num, calculator.IsEven(num))
 
-	// slice := []int{1}
+	slice := []int{1}
+	index := 0
 
-	// fmt.Println("Slice element:", slice[1])
-
-	m := make(map[string]int)
-	m["Marsel"] = 42
-	value, ok := m["Marat"]
-	if !ok {
-		fmt.Println("Not valid key for map")
+	if _, err := accessor.GetIndex(slice, index); err != nil {
+		fmt.Printf(fmt.Sprint(err), index, len(slice))
 		return
 	}
-	fmt.Println("map value:", value)
+
+	m := make(map[string]int)
+	key := "Marsel"
+	m[key] = 42
+
+	if _, err := accessor.GetKey(m, key); err != nil {
+		fmt.Printf(fmt.Sprint(err), key)
+		return
+	}
+
+	pointers()
 }
 
 func printResult(name string, grades []int, average float64, num int, isEven bool) {
