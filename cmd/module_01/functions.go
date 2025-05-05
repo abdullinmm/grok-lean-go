@@ -13,7 +13,7 @@ func Functions() {
 
 	sum, diff, err := calculator.Calculate(a, b)
 	if err != nil {
-		return
+		fmt.Printf("Invalid number value %v", err)
 	}
 
 	fmt.Printf("sum = %d, diff = %d\n", sum, diff)
