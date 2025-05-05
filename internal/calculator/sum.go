@@ -9,6 +9,7 @@ var (
 	ErrOverflow            = errors.New("Overflow when calculating the sum or difference")
 	ErrOverflowAddition    = errors.New("Overflow during addition")
 	ErrOverflowSubtraction = errors.New("Overflow during subtraction")
+	ErrNumbersNegative     = errors.New("Numbers cannot be negative")
 )
 
 // Calculate returns the sum and difference of two numbers.
@@ -44,5 +45,21 @@ func CalculateInt(a, b int) (sum, difference int, err error) {
 		err = ErrOverflowSubtraction
 		return
 	}
+	return
+}
+
+// The calculate function takes two numbers
+// and returns their sum, difference, and error
+// (if the numbers are negative, an error is returned).
+func Calculate(a, b int) (sum, diff int, err error) {
+
+	if (a < 0) || (b < 0) {
+		err = ErrNumbersNegative
+		return
+	}
+
+	sum = a + b
+	diff = a - b
+
 	return
 }

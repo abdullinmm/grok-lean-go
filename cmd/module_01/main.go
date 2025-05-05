@@ -38,6 +38,7 @@ func main() {
 	}
 
 	pointers()
+	Functions()
 }
 
 func printResult(name string, grades []int, average float64, num int, isEven bool) {
