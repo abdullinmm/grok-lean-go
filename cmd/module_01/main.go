@@ -5,6 +5,7 @@ import (
 
 	"github.com/abdullinmm/grok-lean-go/internal/accessor"
 	"github.com/abdullinmm/grok-lean-go/internal/calculator"
+	"github.com/abdullinmm/grok-lean-go/internal/mathutils"
 )
 
 func main() {
@@ -40,6 +41,11 @@ func main() {
 	pointers()
 	Functions()
 	Slices()
+
+	a := 10
+	b := 5
+
+	fmt.Printf("Find max value : %d\n", mathutils.Max(a, b))
 }
 
 func printResult(name string, grades []int, average float64, num int, isEven bool) {
