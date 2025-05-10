@@ -39,6 +39,7 @@ func main() {
 
 	pointers()
 	Functions()
+	Slices()
 }
 
 func printResult(name string, grades []int, average float64, num int, isEven bool) {

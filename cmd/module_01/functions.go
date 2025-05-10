@@ -23,5 +23,5 @@ func Functions() {
 		return sum * 2
 	}
 
-	fmt.Printf("double = %d", double())
+	fmt.Printf("double = %d\n", double())
 }

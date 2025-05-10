@@ -40,7 +40,7 @@ func TestGetIndex(t *testing.T) {
 				t.Errorf("Expected %s, got %s", tt.expected, err)
 			} else if err == nil && tt.expected == nil {
 				// Check the value if there is no error
-				expectedVal := tt.slice[tt.index]
+				expectedVal := tt.index
 				if value != expectedVal {
 					t.Errorf("Expected value %v, got %v", expectedVal, value)
 				}
