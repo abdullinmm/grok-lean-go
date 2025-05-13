@@ -26,14 +26,14 @@ func Slices() {
 		fmt.Printf("error: %v", err)
 	}
 
-	fmt.Printf("Slice values befor doubled: %v\nSlice values after doublet: %v\n", slice, doubledSlice)
+	fmt.Printf("Slice values befor doubled: %v\nSlice values after doubled: %v\n", slice, doubledSlice)
 
 	doubledSliceWithFunc, err := calculator.DoubleSlice(slice)
 	if err != nil {
 		fmt.Printf("error: %v", err)
 	}
 
-	fmt.Printf("Slice values befor doubled: %v\nSlice values after doublet: %v\n", slice, doubledSliceWithFunc)
+	fmt.Printf("Slice values befor doubled: %v\nSlice values after doubled: %v\n", slice, doubledSliceWithFunc)
 
 	var sl []int
 

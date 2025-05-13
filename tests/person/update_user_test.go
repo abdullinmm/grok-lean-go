@@ -1,4 +1,4 @@
-package person_test
+package person
 
 import (
 	"errors"

@@ -12,9 +12,5 @@ func ValidateSlice(slice *[]int) error {
 	if *slice == nil {
 		return ErrSliceNil
 	}
-	// check slice len
-	if len(*slice) <= 0 {
-		return ErrEmptySlise
-	}
 	return nil
 }
