@@ -4,13 +4,17 @@ import "errors"
 
 var (
 	ErrSliceNil   = errors.New("Slice is nil")
-	ErrEmptySlise = errors.New("Slice is empty")
+	ErrEmptySliсe = errors.New("Slice is empty")
 )
 
-func ValidateSlice(slice *[]int) error {
+// Generalized function
+func ValidateSlice[T any](slice []T) error {
 	// check for nil slice
-	if *slice == nil {
+	if slice == nil {
 		return ErrSliceNil
+	}
+	if len(slice) == 0 {
+		return ErrEmptySliсe
 	}
 	return nil
 }

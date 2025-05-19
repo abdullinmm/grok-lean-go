@@ -48,6 +48,7 @@ func main() {
 	fmt.Printf("Find max value : %d\n", mathutils.Max(a, b))
 
 	PersonMain()
+	AccountMain()
 }
 
 func printResult(name string, grades []int, average float64, num int, isEven bool) {

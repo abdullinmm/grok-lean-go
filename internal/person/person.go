@@ -3,7 +3,7 @@ package person
 import "errors"
 
 var (
-	ErrNegativeAmount    = errors.New("Negative amount")
+	ErrNegativeAmount    = errors.New("amount must be positive")
 	ErrInsufficientFunds = errors.New("Insufficient funds")
 )
 
@@ -24,10 +24,21 @@ func (p *Person) AddMoney(amount float64) error {
 
 // spends money, returns an error if amount < 0 or insufficient funds
 func (p *Person) SpendMoney(amount float64) error {
-	if amount < 0 || p.Balance < amount {
+	if amount < 0 {
+		return ErrNegativeAmount
+	}
+	if p.Balance < amount {
 		return ErrInsufficientFunds
 	}
 
 	p.Balance -= amount
 	return nil
+}
+
+func (p *Person) Deposit(amount float64) (err error) {
+	return p.AddMoney(amount)
+}
+
+func (p *Person) Withdraw(amount float64) error {
+	return p.SpendMoney(amount)
 }

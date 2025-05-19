@@ -8,7 +8,7 @@ import (
 func DoubleSlice(slice []int) ([]int, error) {
 
 	// check the slice for nil and for emptiness
-	if err := slicecheck.ValidateSlice(&slice); err != nil {
+	if err := slicecheck.ValidateSlice(slice); err != nil {
 		return nil, err
 	}
 
@@ -25,7 +25,7 @@ func DoubleSlice(slice []int) ([]int, error) {
 func DoubleSliceWithFunc(slice []int) ([]int, error) {
 
 	// check the slice for nil and for emptiness
-	if err := slicecheck.ValidateSlice(&slice); err != nil {
+	if err := slicecheck.ValidateSlice(slice); err != nil {
 		return nil, err
 	}
 
