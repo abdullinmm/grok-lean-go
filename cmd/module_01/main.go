@@ -55,3 +55,10 @@ func printResult(name string, grades []int, average float64, num int, isEven boo
 	fmt.Printf("Hello, %s! Your grades: %v. Average grade: %.2f\n", name, grades, average)
 	fmt.Printf("Number %d is even: %t\n", num, isEven)
 }
+
+func Describe(v interface{}) string {
+	switch val := v.(type) {
+	default:
+		return fmt.Sprintf("%T: %v", val, val)
+	}
+}

@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/abdullinmm/grok-lean-go/internal/account"
+	"github.com/abdullinmm/grok-lean-go/internal/errors"
 	"github.com/abdullinmm/grok-lean-go/internal/person"
 	"github.com/stretchr/testify/assert"
 )
@@ -18,8 +19,8 @@ func TestSavingAccount_Deposit(t *testing.T) {
 		wantErr     error
 	}{
 		{"Positive deposit", 0, 100.50, 100.50, nil},
-		{"Zero deposit", 50, 0, 50, person.ErrNegativeAmount},
-		{"Negative deposit", 50, -10, 50, person.ErrNegativeAmount},
+		{"Zero deposit", 50, 0, 50, &errors.NegativeAmountError{}},
+		{"Negative deposit", 50, -10, 50, &errors.NegativeAmountError{}},
 		{"Fractional deposit", 100.50, 0.50, 101.00, nil},
 	}
 
@@ -28,7 +29,11 @@ func TestSavingAccount_Deposit(t *testing.T) {
 			sa := &account.SavingAccount{Balance: tt.initial}
 			err := sa.Deposit(tt.amount)
 
-			assert.ErrorIs(t, err, tt.wantErr)
+			if tt.wantErr != nil {
+				assert.ErrorAs(t, err, &tt.wantErr)
+			} else {
+				assert.NoError(t, err)
+			}
 			assert.Equal(t, tt.wantBalance, sa.Balance)
 		})
 	}
@@ -43,8 +48,8 @@ func TestSavingAccount_Withdraw(t *testing.T) {
 		wantErr     error
 	}{
 		{"Successful withdrawal", 100.50, 50.25, 50.25, nil},
-		{"Insufficient funds", 50.50, 100, 50.50, person.ErrInsufficientFunds},
-		{"Negative withdrawal", 100, -50, 100, person.ErrNegativeAmount},
+		{"Insufficient funds", 50.50, 100, 50.50, &errors.InsufficientFundsError{}},
+		{"Negative withdrawal", 100, -50, 100, &errors.InsufficientFundsError{}},
 		{"Exact balance withdrawal", 75.75, 75.75, 0, nil},
 		{"Fractional withdrawal", 100.99, 0.99, 100.00, nil},
 	}
@@ -54,7 +59,11 @@ func TestSavingAccount_Withdraw(t *testing.T) {
 			sa := &account.SavingAccount{Balance: tt.initial}
 			err := sa.Withdraw(tt.amount)
 
-			assert.ErrorIs(t, err, tt.wantErr)
+			if tt.wantErr != nil {
+				assert.ErrorAs(t, err, &tt.wantErr)
+			} else {
+				assert.NoError(t, err)
+			}
 			assert.Equal(t, tt.wantBalance, sa.Balance)
 		})
 	}
@@ -62,30 +71,31 @@ func TestSavingAccount_Withdraw(t *testing.T) {
 
 // === Tests for Person (via Account interface) ===
 func TestPerson_AccountInterface(t *testing.T) {
-	p := &person.Person{Balance: 0}
-
 	tests := []struct {
 		name        string
-		account     account.Account
-		operation   func() error
+		setup       func() (account.Account, func() error)
 		wantBalance float64
 		wantErr     error
 	}{
 		{
-			name:    "Person Deposit",
-			account: p,
-			operation: func() error {
-				return p.Deposit(100)
+			name: "Person Deposit",
+			setup: func() (account.Account, func() error) {
+				p := &person.Person{Balance: 0}
+				return p, func() error { return p.Deposit(100) }
 			},
 			wantBalance: 100,
 			wantErr:     nil,
 		},
 		{
-			name:    "Person Withdraw",
-			account: p,
-			operation: func() error {
-				p.Balance = 100
-				return p.Withdraw(50)
+			name: "Person Withdraw",
+			setup: func() (account.Account, func() error) {
+				p := &person.Person{Balance: 0}
+				return p, func() error {
+					if err := p.Deposit(100); err != nil {
+						return err
+					}
+					return p.Withdraw(50)
+				}
 			},
 			wantBalance: 50,
 			wantErr:     nil,
@@ -94,10 +104,15 @@ func TestPerson_AccountInterface(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			err := tt.operation()
+			acc, op := tt.setup()
+			err := op()
 
-			assert.ErrorIs(t, err, tt.wantErr)
-			assert.Equal(t, tt.wantBalance, tt.account.(*person.Person).Balance)
+			if tt.wantErr != nil {
+				assert.ErrorAs(t, err, &tt.wantErr)
+			} else {
+				assert.NoError(t, err)
+			}
+			assert.Equal(t, tt.wantBalance, acc.(*person.Person).Balance)
 		})
 	}
 }
@@ -124,7 +139,11 @@ func TestAccountOperations(t *testing.T) {
 
 			// Attempt to withdraw more balance
 			err = tt.account.Withdraw(60)
-			assert.ErrorIs(t, err, person.ErrInsufficientFunds)
+			expectedErr := &errors.InsufficientFundsError{
+				Required:  60,
+				Available: 50, // After 100 deposit and 50 withdrawal, the balance is 50
+			}
+			assert.ErrorAs(t, err, &expectedErr)
 		})
 	}
 }

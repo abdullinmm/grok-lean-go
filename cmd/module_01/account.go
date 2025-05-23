@@ -1,9 +1,11 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/abdullinmm/grok-lean-go/internal/account"
+	apperrors "github.com/abdullinmm/grok-lean-go/internal/errors"
 	"github.com/abdullinmm/grok-lean-go/internal/person"
 )
 
@@ -12,13 +14,17 @@ func AccountMain() {
 	p := &person.Person{}
 	sa := &account.SavingAccount{}
 
+	var negErr *apperrors.NegativeAmountError
+
 	// Slice of account
 	accounts := []account.Account{p, sa}
 
 	for _, acc := range accounts {
 		fmt.Printf("Processing account: %T\n", acc)
 		if err := acc.Deposit(100); err != nil {
-			fmt.Println("Deposit Error:", err)
+			if errors.As(err, &negErr) {
+				fmt.Println("Deposit Error:", err)
+			}
 		}
 		if err := acc.Withdraw(50); err != nil {
 			fmt.Println("Withdraw Error:", err)

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"testing"
 
+	apperrors "github.com/abdullinmm/grok-lean-go/internal/errors"
 	"github.com/abdullinmm/grok-lean-go/internal/person"
 )
 
@@ -27,7 +28,7 @@ func TestAddBalance(t *testing.T) {
 			person:   &person.Person{Name: "Marsel", Balance: 100.00},
 			amount:   -50.00,
 			balance:  00.00,
-			expected: person.ErrNegativeAmount,
+			expected: &apperrors.NegativeAmountError{Amount: -10},
 		},
 	}
 
@@ -65,14 +66,14 @@ func TestSpendBalance(t *testing.T) {
 			person:   &person.Person{Name: "Marsel", Balance: 50.00},
 			amount:   150.00,
 			balance:  00.00,
-			expected: person.ErrInsufficientFunds,
+			expected: &apperrors.InsufficientFundsError{},
 		},
 		{
 			name:     "Negative amount",
 			person:   &person.Person{Name: "Marsel", Balance: 100.00},
 			amount:   -50.00,
 			balance:  00.00,
-			expected: person.ErrInsufficientFunds,
+			expected: &apperrors.InsufficientFundsError{},
 		},
 		{
 			name:     "The amount is equal to the balance",
