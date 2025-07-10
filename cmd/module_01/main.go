@@ -5,7 +5,11 @@ import (
 
 	"github.com/abdullinmm/grok-lean-go/internal/accessor"
 	"github.com/abdullinmm/grok-lean-go/internal/calculator"
+	"github.com/abdullinmm/grok-lean-go/internal/counters"
 	"github.com/abdullinmm/grok-lean-go/internal/mathutils"
+	"github.com/abdullinmm/grok-lean-go/internal/palindrome"
+	"github.com/abdullinmm/grok-lean-go/internal/race"
+	"github.com/abdullinmm/grok-lean-go/internal/worker"
 )
 
 func main() {
@@ -49,6 +53,21 @@ func main() {
 
 	PersonMain()
 	AccountMain()
+
+	s1 := []int{2, 4, 7}
+
+	fmt.Printf("%v\n", worker.ProcessNumber(s1, 5))
+
+	fmt.Printf("%v\n", race.Counter(60))
+	// fmt.Printf("%v\n", race.CounterCh(60))
+	fmt.Printf("%v\n", counters.CounterCh(1000))
+
+	str := "NAN"
+	if err := palindrome.Palindrome(str); err != nil {
+		fmt.Printf("String %s is not palindrome", str)
+	} else {
+		fmt.Printf("String %s is palindrome", str)
+	}
 }
 
 func printResult(name string, grades []int, average float64, num int, isEven bool) {
@@ -56,8 +75,8 @@ func printResult(name string, grades []int, average float64, num int, isEven boo
 	fmt.Printf("Number %d is even: %t\n", num, isEven)
 }
 
-func Describe(v interface{}) string {
-	switch val := v.(type) {
+func Describe(a any) string {
+	switch val := a.(type) {
 	default:
 		return fmt.Sprintf("%T: %v", val, val)
 	}
