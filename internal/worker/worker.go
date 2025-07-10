@@ -1,16 +1,15 @@
 package worker
 
 import (
-	"fmt"
 	"sync"
 
 	"github.com/abdullinmm/grok-lean-go/internal/slicecheck"
 )
 
-func ProcessNumber(number []int, workers int) []int {
-	if err := slicecheck.ValidateSlice(number); err != nil {
-		fmt.Println("Slice error:", err)
-		return []int{}
+func ProcessNumber(number []int, workers int) ([]int, error) {
+	err := slicecheck.ValidateSlice(number)
+	if err != nil {
+		return []int{}, err
 	}
 
 	if workers < len(number) || workers < 1 {
@@ -55,5 +54,5 @@ func ProcessNumber(number []int, workers int) []int {
 		results[res.index] = res.value
 	}
 
-	return results
+	return results, nil
 }

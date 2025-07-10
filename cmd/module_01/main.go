@@ -56,7 +56,11 @@ func main() {
 
 	s1 := []int{2, 4, 7}
 
-	fmt.Printf("%v\n", worker.ProcessNumber(s1, 5))
+	if v, err := worker.ProcessNumber(s1, 5); err != nil {
+		fmt.Printf("%v", err)
+	} else {
+		fmt.Printf("%v\n", v)
+	}
 
 	fmt.Printf("%v\n", race.Counter(60))
 	// fmt.Printf("%v\n", race.CounterCh(60))
