@@ -13,7 +13,7 @@ func pointers() {
 
 	fmt.Printf("User name befor update : %s. User age before update: %d\n", person.Name, person.Age)
 
-	err := person.Validate()
+	err := person.ValidatePerson()
 	if err != nil {
 		fmt.Printf("Invalid struct %v", err)
 	}
