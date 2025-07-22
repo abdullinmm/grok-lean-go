@@ -19,7 +19,7 @@ type Person struct {
 }
 
 // ValidatePerson validates the Person struct.
-func (p *Person) Validate() error {
+func (p *Person) ValidatePerson() error {
 
 	// Name validation
 	if strings.TrimSpace(p.Name) == "" || len(p.Name) < 2 {

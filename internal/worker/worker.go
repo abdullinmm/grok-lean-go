@@ -6,6 +6,7 @@ import (
 	"github.com/abdullinmm/grok-lean-go/internal/slicecheck"
 )
 
+// ProcessNumber ....
 func ProcessNumber(number []int, workers int) ([]int, error) {
 	err := slicecheck.ValidateSlice(number)
 	if err != nil {

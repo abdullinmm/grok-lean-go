@@ -26,7 +26,7 @@ func TestUpdateUser(t *testing.T) {
 	}
 	for _, tt := range test {
 		t.Run(tt.testName, func(t *testing.T) {
-			err := tt.person.Validate()
+			err := tt.person.ValidatePerson()
 			if !errors.Is(err, tt.expected) {
 				t.Errorf("Expected %s, got %s", tt.expected, err)
 			}

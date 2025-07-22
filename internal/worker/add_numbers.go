@@ -87,7 +87,7 @@ func AddNumberCh(numbers []int) int {
 	return total
 }
 
-// AddnumbersCh1 sums all elements concurrently and reduces partial results using a cascading reduction.
+// AddNumberCh1 sums all elements concurrently and reduces partial results using a cascading reduction.
 func AddNumberCh1(numbers []int) int {
 	if len(numbers) == 0 {
 		return 0

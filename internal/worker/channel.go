@@ -2,7 +2,7 @@ package worker
 
 import "fmt"
 
-// Function: channel processing.
+// ProccesChannel ....
 func ProccesChannel(ch <-chan int) {
 	for {
 		value, ok := <-ch
