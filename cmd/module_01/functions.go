@@ -6,6 +6,7 @@ import (
 	"github.com/abdullinmm/grok-lean-go/internal/calculator"
 )
 
+// Functions initializes Person and SavingsAccount, performs deposit and withdrawal operations, and prints balances.
 func Functions() {
 
 	a := 2

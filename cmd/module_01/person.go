@@ -7,6 +7,7 @@ import (
 	"github.com/abdullinmm/grok-lean-go/internal/slicecheck"
 )
 
+// PersonMain
 func PersonMain() {
 	p := person.Person{Name: "Marsel", Balance: 100.00}
 	p1 := person.Person{Name: "Emil", Balance: 10.00}
@@ -37,6 +38,7 @@ func PersonMain() {
 	fmt.Printf("Your balance %s = %.2f\n", p.Name, p.Balance)
 }
 
+// CheckBalance
 func CheckBalance(p []person.Person) (slice []string, err error) {
 
 	// check nil and empty slice

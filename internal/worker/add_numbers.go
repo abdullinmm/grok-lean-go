@@ -5,6 +5,7 @@ import (
 	"sync"
 )
 
+// AddNumbers sums all elements in the provided slice.
 func AddNumbers(number []int) int {
 	if number == nil {
 		return 0
@@ -19,8 +20,9 @@ func AddNumbers(number []int) int {
 	return results
 }
 
-func AddNumberMu(number []int) int {
-	if number == nil {
+// AddNumberMu sums all elements using a mutex for thread safety.
+func AddNumberMu(numbers []int) int {
+	if numbers == nil {
 		return 0
 	}
 
@@ -28,9 +30,9 @@ func AddNumberMu(number []int) int {
 
 	var wg sync.WaitGroup
 	var mu sync.Mutex
-	wg.Add(len(number))
+	wg.Add(len(numbers))
 
-	for v := range len(number) {
+	for _, v := range numbers {
 		go func() {
 			defer wg.Done()
 			mu.Lock()
@@ -44,21 +46,23 @@ func AddNumberMu(number []int) int {
 	return result
 }
 
-func AddNumberCh(number []int) int {
-	if len(number) == 0 {
+// AddNumberCh sums all elements in parallel using channels.
+// The slice is split into chunks and each chunk is summed concurrently.
+func AddNumberCh(numbers []int) int {
+	if len(numbers) == 0 {
 		return 0
 	}
-	//workers := len(number)
+
 	workers := runtime.NumCPU()
 	results := make(chan int, workers)
-	chunkSize := (len(number) + workers - 1) / workers
+	chunkSize := (len(numbers) + workers - 1) / workers
 
 	var wg sync.WaitGroup
 	for i := 0; i < workers; i++ {
 		start := i * chunkSize
 		end := start + chunkSize
-		if end > len(number) {
-			end = len(number)
+		if end > len(numbers) {
+			end = len(numbers)
 		}
 		wg.Add(1)
 		go func(nums []int) {
@@ -68,7 +72,7 @@ func AddNumberCh(number []int) int {
 				sum += v
 			}
 			results <- sum
-		}(number[start:end])
+		}(numbers[start:end])
 	}
 
 	go func() {
@@ -83,6 +87,7 @@ func AddNumberCh(number []int) int {
 	return total
 }
 
+// AddnumbersCh1 sums all elements concurrently and reduces partial results using a cascading reduction.
 func AddNumberCh1(numbers []int) int {
 	if len(numbers) == 0 {
 		return 0
@@ -117,7 +122,7 @@ func AddNumberCh1(numbers []int) int {
 		close(results)
 	}()
 
-	// Каскадная редукция
+	// cascading reduction
 	partialSums := []int{}
 	for sum := range results {
 		partialSums = append(partialSums, sum)

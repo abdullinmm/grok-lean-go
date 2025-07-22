@@ -9,6 +9,7 @@ import (
 	"github.com/abdullinmm/grok-lean-go/internal/person"
 )
 
+// AccountMain initializes Person and SavingsAccount, performs deposit and withdrawal operations, and prints balances.
 func AccountMain() {
 	// Initializing Person and SavingsAccount
 	p := &person.Person{}

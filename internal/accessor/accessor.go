@@ -5,9 +5,12 @@ import (
 )
 
 var (
+	// ErrIndexOutOfBounds is returned when an index is out of bounds.
 	ErrIndexOutOfBounds = errors.New("index out of range [%d] with length %d")
-	ErrInvalidMapKey    = errors.New("invalid map key %s")
-	ErrUnsupportedType  = errors.New("unsupported type: %T")
+	// ErrInvalidMapKey is returned when a map key is invalid.
+	ErrInvalidMapKey = errors.New("invalid map key %s")
+	// ErrUnsupportedType is returned when an unsupported type is encountered.
+	ErrUnsupportedType = errors.New("unsupported type: %T")
 )
 
 // Get safely retrieves an element from a slice by index.

@@ -8,6 +8,7 @@ import (
 	"github.com/abdullinmm/grok-lean-go/internal/calculator"
 )
 
+// Slices
 func Slices() {
 
 	// Initializing the local generator

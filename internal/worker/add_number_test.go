@@ -5,15 +5,15 @@ import (
 )
 
 func BenchmarkAddNumbers(b *testing.B) {
-	number := make([]int, 10000)
+	numbers := make([]int, 10000)
 
-	for i := range len(number) {
-		number[i] = i
+	for i := range len(numbers) {
+		numbers[i] = i
 	}
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		AddNumbers(number)
+		AddNumbers(numbers)
 	}
 }
 
@@ -31,28 +31,28 @@ func BenchmarkAddNumbersMu(b *testing.B) {
 }
 
 func BenchmarkAddNumbersCh(b *testing.B) {
-	number := make([]int, 10000)
+	numbers := make([]int, 10000)
 
-	for i := range len(number) {
-		number[i] = i
+	for i := range len(numbers) {
+		numbers[i] = i
 	}
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		AddNumberCh(number)
+		AddNumberCh(numbers)
 	}
 }
 
 func BenchmarkAddNumbersCh1(b *testing.B) {
-	number := make([]int, 10000)
+	numbers := make([]int, 10000)
 
-	for i := range len(number) {
-		number[i] = i
+	for i := range len(numbers) {
+		numbers[i] = i
 	}
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		AddNumberCh1(number)
+		AddNumberCh1(numbers)
 	}
 }
 
