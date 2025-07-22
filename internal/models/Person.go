@@ -7,7 +7,7 @@ import (
 
 var (
 	// ErrValidateName is returned when the name is invalid.
-	ErrValidateName = errors.New("Invalid user name.")
+	ErrValidateName = errors.New("Invalid user name")
 	// ErrValidateAge is returned when the age is invalid.
 	ErrValidateAge = errors.New("Age cannot be negative")
 )

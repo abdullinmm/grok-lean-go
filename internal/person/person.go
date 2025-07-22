@@ -4,6 +4,7 @@ import (
 	"github.com/abdullinmm/grok-lean-go/internal/errors"
 )
 
+// Person represents a person with a name and balance.
 type Person struct {
 	Name    string
 	Balance float64
