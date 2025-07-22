@@ -2,8 +2,6 @@ package mathutils
 
 import (
 	"testing"
-
-	"github.com/abdullinmm/grok-lean-go/internal/mathutils"
 )
 
 func TestMax(t *testing.T) {
@@ -35,8 +33,8 @@ func TestMax(t *testing.T) {
 
 	for _, tt := range test {
 		t.Run(tt.name, func(t *testing.T) {
-			if mathutils.Max(tt.a, tt.b) != tt.expected {
-				t.Errorf("Expected %d, got %d", tt.expected, mathutils.Max(tt.a, tt.b))
+			if Max(tt.a, tt.b) != tt.expected {
+				t.Errorf("Expected %d, got %d", tt.expected, Max(tt.a, tt.b))
 			}
 		})
 	}

@@ -2,8 +2,6 @@ package worker
 
 import (
 	"testing"
-
-	"github.com/abdullinmm/grok-lean-go/internal/worker"
 )
 
 func BenchmarkAddNumbers(b *testing.B) {
@@ -15,7 +13,7 @@ func BenchmarkAddNumbers(b *testing.B) {
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		worker.AddNumbers(number)
+		AddNumbers(number)
 	}
 }
 
@@ -28,7 +26,7 @@ func BenchmarkAddNumbersMu(b *testing.B) {
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		worker.AddNumberMu(number)
+		AddNumberMu(number)
 	}
 }
 
@@ -41,7 +39,7 @@ func BenchmarkAddNumbersCh(b *testing.B) {
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		worker.AddNumberCh(number)
+		AddNumberCh(number)
 	}
 }
 
@@ -54,7 +52,7 @@ func BenchmarkAddNumbersCh1(b *testing.B) {
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		worker.AddNumberCh1(number)
+		AddNumberCh1(number)
 	}
 }
 
@@ -83,7 +81,7 @@ func TestAddNumber(t *testing.T) {
 
 	for _, tt := range test {
 		t.Run(tt.name, func(t *testing.T) {
-			if v := worker.AddNumbers(tt.slice); v != tt.exptcted {
+			if v := AddNumbers(tt.slice); v != tt.exptcted {
 				t.Errorf("Expected %d, got %d", tt.exptcted, v)
 			}
 		})
