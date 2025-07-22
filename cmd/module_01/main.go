@@ -79,7 +79,7 @@ func printResult(name string, grades []int, average float64, num int, isEven boo
 	fmt.Printf("Number %d is even: %t\n", num, isEven)
 }
 
-// Describe
+// Describe ....
 func Describe(a any) string {
 	switch val := a.(type) {
 	default:

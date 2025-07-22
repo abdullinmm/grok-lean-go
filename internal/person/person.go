@@ -9,7 +9,7 @@ type Person struct {
 	Balance float64
 }
 
-// Adds money to the balance, returns an error if amount < 0
+// AddMoney adds the specified amount to the account balance.
 func (p *Person) AddMoney(amount float64) error {
 	if amount < 0 {
 		return &errors.NegativeAmountError{Amount: amount}
@@ -19,7 +19,7 @@ func (p *Person) AddMoney(amount float64) error {
 	return nil
 }
 
-// Spends money, returns an error if amount < 0 or insufficient funds
+// SpendMoney spends the specified amount from the account balance.
 func (p *Person) SpendMoney(amount float64) error {
 	if amount < 0 {
 		return &errors.NegativeAmountError{Amount: amount}
@@ -37,10 +37,12 @@ func (p *Person) Deposit(amount float64) (err error) {
 	return p.AddMoney(amount)
 }
 
+// Withdraw spends the specified amount from the account balance.
 func (p *Person) Withdraw(amount float64) error {
 	return p.SpendMoney(amount)
 }
 
+// GetBalance returns the current balance of the account.
 func (p *Person) GetBalance() float64 {
 	return p.Balance
 }

@@ -13,7 +13,7 @@ var (
 	ErrUnsupportedType = errors.New("unsupported type: %T")
 )
 
-// Get safely retrieves an element from a slice by index.
+// GetIndex get safely retrieves an element from a slice by index.
 func GetIndex(slice []int, index int) (int, error) {
 	if index < 0 || index > len(slice) {
 		return 0, ErrIndexOutOfBounds
@@ -21,7 +21,7 @@ func GetIndex(slice []int, index int) (int, error) {
 	return index, nil
 }
 
-// Get valid map key
+// GetKey get safely retrieves a key from a map by key.
 func GetKey(m map[string]int, key string) (string, error) {
 	if _, ok := m[key]; !ok {
 		return "", ErrInvalidMapKey

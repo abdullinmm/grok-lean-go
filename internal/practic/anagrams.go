@@ -1,5 +1,6 @@
 package practic
 
+// Anagrams ....
 func Anagrams(s1 string, s2 string) error {
 	// if len(s1) != len(s2) || len(s1) < 1 || len(s2) < 1 {
 	// 	return fmt.Errorf("string not anagram")

@@ -6,16 +6,19 @@ import (
 )
 
 var (
-	ErrValidateName = errors.New("Invalit user name.")
-	ErrValidateAge  = errors.New("Age cannot be negative")
+	// ErrValidateName is returned when the name is invalid.
+	ErrValidateName = errors.New("Invalid user name.")
+	// ErrValidateAge is returned when the age is invalid.
+	ErrValidateAge = errors.New("Age cannot be negative")
 )
 
+// Person represents a person with a name and age.
 type Person struct {
 	Name string
 	Age  int
 }
 
-// User validation method (uses a pointer to avoid copying)
+// ValidatePerson validates the Person struct.
 func (p *Person) Validate() error {
 
 	// Name validation
@@ -30,7 +33,7 @@ func (p *Person) Validate() error {
 	return nil
 }
 
-// Updates the Name and Age fields(uses a pointer to avoid copying)
+// UpdatePerson updates the Person struct.
 func (p *Person) UpdatePerson(name string, age int) {
 
 	if p.Name != name {

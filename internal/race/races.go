@@ -4,6 +4,7 @@ import (
 	"sync"
 )
 
+// Counter ....
 func Counter(workers int) (count int) {
 
 	if workers < 1 {

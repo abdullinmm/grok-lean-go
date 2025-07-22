@@ -7,6 +7,7 @@ import (
 	"unicode/utf8"
 )
 
+// ReadFile reads the contents of a file and returns them as a string.
 func ReadFile(filePath string) (string, error) {
 
 	data, err := os.ReadFile(filePath)

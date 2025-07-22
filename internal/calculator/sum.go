@@ -6,13 +6,17 @@ import (
 )
 
 var (
-	ErrOverflow            = errors.New("Overflow when calculating the sum or difference")
-	ErrOverflowAddition    = errors.New("Overflow during addition")
+	// ErrOverflow indicates that an overflow has occurred.
+	ErrOverflow = errors.New("Overflow when calculating the sum or difference")
+	// ErrOverflowAddition indicates that an overflow has occurred during addition.
+	ErrOverflowAddition = errors.New("Overflow during addition")
+	// ErrOverflowSubtraction indicates that an overflow has occurred during subtraction.
 	ErrOverflowSubtraction = errors.New("Overflow during subtraction")
-	ErrNumbersNegative     = errors.New("Numbers cannot be negative")
+	// ErrNumbersNegative indicates that the numbers cannot be negative.
+	ErrNumbersNegative = errors.New("Numbers cannot be negative")
 )
 
-// Calculate returns the sum and difference of two numbers.
+// CalculateFloat takes two float64 numbers and returns their sum and difference.
 // If the result of the operation exceeds the maximum allowed float64 value,
 // an error is returned.
 func CalculateFloat(a, b float64) (sum, difference float64, err error) {
@@ -27,8 +31,8 @@ func CalculateFloat(a, b float64) (sum, difference float64, err error) {
 	return
 }
 
-// Calculate returns the sum and difference of two integers.
-// If an overflow has occurred, an error is returned.
+// CalculateInt takes two int numbers and returns their sum and difference.
+// If an overflow has occurred during addition or subtraction, an error is returned.
 func CalculateInt(a, b int) (sum, difference int, err error) {
 
 	sum = a + b
@@ -48,9 +52,8 @@ func CalculateInt(a, b int) (sum, difference int, err error) {
 	return
 }
 
-// The calculate function takes two numbers
-// and returns their sum, difference, and error
-// (if the numbers are negative, an error is returned).
+// Calculate takes two int numbers and returns their sum and difference.
+// If the numbers are negative, an error is returned.
 func Calculate(a, b int) (sum, diff int, err error) {
 
 	if (a < 0) || (b < 0) {
